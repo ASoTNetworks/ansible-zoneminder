@@ -34,7 +34,7 @@
   lineinfile:
     dest: /etc/php/7.3/apache2/php.ini
     regexp: "date.timezone ="
-    line: "America/Toronto"
+    line: "date.timezone = America/Toronto"
 
 - name: Enable Zoneminder service
   systemd:

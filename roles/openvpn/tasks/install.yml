@@ -10,6 +10,13 @@
     src: files/
     dest: /etc/openvpn/
 
+- name: chmod 700 /etc/openvpn
+  file:
+    path: /etc/openvpn
+    owner: root
+    group: root
+    mode: '0700'
+
 - name: Restart OpenVPN
   systemd:
     name: openvpn@zoneminder-client

@@ -1,0 +1,16 @@
+---
+- name: Configure system to use old interface names
+  copy: 
+    src: grub
+    dest: /etc/default/grub
+
+- name: Configure network interfaces
+  copy: 
+    src: interfaces
+    dest: /etc/network/interfaces
+
+- name: Update GRUB
+  shell: update-grub
+
+- name: Rebooting machine
+  reboot:

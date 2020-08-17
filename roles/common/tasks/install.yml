@@ -1,0 +1,68 @@
+---
+- name: Install php.ini config file
+  copy: 
+    src: sources.list
+    dest: /etc/apt/sources.list
+
+- name: Upgrade the system
+  apt:
+    update_cache: true
+    upgrade: dist
+  register: apt_cache
+  retries: 50
+  until: apt_cache is success
+
+- name: Install system required packages
+  apt:
+    pkg:
+      - ntp
+      - python-pip
+      - python3-pip
+      - python3-apt
+      - vim-nox
+      - curl
+      - apt-transport-https
+      - software-properties-common
+      - haveged
+      - smartmontools
+      - net-tools
+
+- name: Install basic utils
+  apt:
+    state: present
+    pkg:
+      - vim-nox
+      - curl
+      - htop
+      - mtr-tiny
+      - sendmail
+      - mailutils
+
+- name: Set timezone to America/Toronto
+  timezone:
+    name: America/Toronto
+
+- name: Configure dhclient to not use network provided NTP server
+  copy:
+    src: dhclient.conf
+    dest: /etc/dhcp/dhclient.conf
+
+- name: Mask sleep.target
+  systemd:
+    name: sleep.target
+    masked: yes
+
+- name: Mask suspend.target
+  systemd:
+    name: suspend.target
+    masked: yes
+
+- name: Mask hibernate.target
+  systemd:
+    name: hibernate.target
+    masked: yes
+
+- name: Mask hybrid-sleep.target
+  systemd:
+    name: hybrid-sleep.target
+    masked: yes

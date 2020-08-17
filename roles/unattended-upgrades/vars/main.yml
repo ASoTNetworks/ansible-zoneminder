@@ -1,0 +1,8 @@
+---
+unattended_mail: 'monitor@aseriesoftubez.com'
+unattended_automatic_reboot: 'true'
+unattended_origins_patterns:
+  - 'origin=Debian,codename=${distro_codename},label=Debian-Security'
+  - 'o=Debian,codename=${distro_codename},label=Debian'
+  - 'o=Debian,codename=${distro_codename},a=proposed-updates'
+  - 'origin=repo.aseriesoftubez.com,codename=${distro_codename},label=zoneminder-repository'

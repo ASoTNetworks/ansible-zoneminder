@@ -1,0 +1,2 @@
+---
+repo: "deb https://repo.aseriesoftubez.com/deb/zm/ {{ ansible_distribution_release }} main"

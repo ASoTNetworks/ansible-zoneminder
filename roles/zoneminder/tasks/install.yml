@@ -1,0 +1,71 @@
+---
+- name: Add ASoT repo key
+  apt_key:
+    id: 34F83B6E
+    url: https://repo.aseriesoftubez.com/deb/asot-repo.key
+    state: present
+
+- name: Add ASoT CDN repo
+  apt_repository:
+    repo: "{{ repo }}"
+    filename: zm
+    state: present
+
+- name: Install Zoneminder and FFmpeg
+  apt:
+    update_cache: true
+    pkg:
+      - apache2
+      - mariadb-server
+      - zoneminder
+      - ffmpeg
+
+- name: Enable Apache Zoneminder config
+  shell: a2enconf zoneminder 
+
+- name: Enable Apache rewrite module
+  shell: a2enmod rewrite
+
+- name: Enable Apache SSL module
+  shell: a2enmod ssl
+
+- name: Set date.timezone for CLI
+  become: true
+  lineinfile:
+    dest: /etc/php/7.3/apache2/php.ini
+    regexp: "date.timezone ="
+    line: "America/Toronto"
+
+- name: Enable Zoneminder service
+  systemd:
+    name: zoneminder
+    enabled: yes
+    state: restarted
+
+- name: Create /etc/apache2/ssl
+  file:
+    path: /etc/apache2/ssl
+    state: directory
+    mode: '0700'
+
+- name: Generate selfsigned SSL cert
+  shell: openssl req -x509 -nodes -days 3650 -newkey rsa:4096 -sha512 -keyout zoneminder.key -out zoneminder.crt -subj "/C=CA/ST=Ontario/L=Toronto/O=A Series of Tubez Networks/OU=IT/CN=zoneminder"
+  args:
+    chdir: /etc/apache2/ssl
+    creates: /etc/apache2/ssl/zoneminder.key
+
+- name: Configuring Apache 000-default.conf
+  copy: 
+    src: 000-default.conf
+    dest: /etc/apache2/sites-enabled/000-default.conf
+
+- name: Configuring Apache ports.conf
+  copy: 
+    src: ports.conf
+    dest: /etc/apache2/ports.conf
+
+- name: Restart Apache2
+  systemd:
+    name: apache2
+    enabled: yes
+    state: restarted

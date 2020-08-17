@@ -1,0 +1,161 @@
+---
+# IPv6 rules
+- name: Set ip6tables to ACCEPT
+  iptables:
+    ip_version: ipv6
+    chain: INPUT
+    policy: ACCEPT
+
+- name: ip6tables Allow ICMP
+  iptables:
+    ip_version: ipv6
+    chain: INPUT
+    protocol: ipv6-icmp
+    jump: ACCEPT
+
+- name: ip6tables Allow SSH
+  iptables:
+    ip_version: ipv6
+    chain: INPUT
+    protocol: tcp
+    in_interface: eth0
+    destination_port: "22"
+    jump: ACCEPT
+
+- name: ip6tables Allow HTTPS TCP 57167
+  iptables:
+    ip_version: ipv6
+    chain: INPUT
+    protocol: tcp
+    in_interface: eth0
+    destination_port: "57167"
+    jump: ACCEPT
+
+- name: ip6tables Allow NTP TCP on eth1
+  iptables:
+    ip_version: ipv6
+    chain: INPUT
+    protocol: tcp
+    in_interface: eth1
+    destination_port: "123"
+    jump: ACCEPT
+
+- name: ip6tables Allow NTP UDP on eth1
+  iptables:
+    ip_version: ipv6
+    chain: INPUT
+    protocol: udp
+    in_interface: eth1
+    destination_port: "123"
+    jump: ACCEPT
+
+- name: ip6tables Allow ESTABLISHED RELATED
+  iptables:
+    ip_version: ipv6
+    chain: INPUT
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
+
+- name: ip6tables Allow all for tun0
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    in_interface: tun0
+    jump: ACCEPT
+
+- name: ip6tables Allow all for lo
+  iptables:
+    ip_version: ipv6
+    chain: INPUT
+    in_interface: lo
+    jump: ACCEPT
+
+- name: Set ip6tables to DROP
+  iptables:
+    ip_version: ipv6
+    chain: INPUT
+    policy: DROP
+
+- name: "ip6tables-save"
+  shell: ip6tables-save > /etc/iptables/rules.v6
+
+# IPv4 rules
+- name: Set iptables to ACCEPT
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    policy: ACCEPT
+
+- name: iptables Allow ICMP
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    protocol: icmp
+    jump: ACCEPT
+
+- name: iptables Allow SSH
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    protocol: tcp
+    in_interface: eth0
+    destination_port: "22"
+    jump: ACCEPT
+
+- name: iptables Allow HTTPS TCP 57167
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    protocol: tcp
+    in_interface: eth0
+    destination_port: "57167"
+    jump: ACCEPT
+
+- name: iptables Allow NTP TCP on eth1
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    protocol: tcp
+    in_interface: eth1
+    destination_port: "123"
+    jump: ACCEPT
+
+- name: iptables Allow NTP UDP on eth1
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    protocol: udp
+    in_interface: eth1
+    destination_port: "123"
+    jump: ACCEPT
+
+- name: iptables Allow ESTABLISHED RELATED
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
+
+- name: iptables Allow all for tun0
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    in_interface: tun0
+    jump: ACCEPT
+
+- name: iptables Allow all for lo
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    in_interface: lo
+    jump: ACCEPT
+
+
+- name: Set iptables to DROP
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    policy: DROP
+
+- name: "iptables-save"
+  shell: iptables-save > /etc/iptables/rules.v4

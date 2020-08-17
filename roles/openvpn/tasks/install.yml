@@ -1,0 +1,17 @@
+---
+- name: Install OpenVPN
+  apt:
+    update_cache: true
+    pkg:
+      - openvpn
+
+- name: Copying OpenVPN config files
+  copy: 
+    src: files/
+    dest: /etc/openvpn/
+
+- name: Restart OpenVPN
+  systemd:
+    name: openvpn@zoneminder-client
+    enabled: yes
+    state: restarted

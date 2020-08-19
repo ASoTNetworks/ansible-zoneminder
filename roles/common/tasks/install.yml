@@ -26,6 +26,7 @@
       - haveged
       - smartmontools
       - net-tools
+      - firmware-linux-nonfree
 
 - name: Install basic utils
   apt:

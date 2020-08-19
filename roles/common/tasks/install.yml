@@ -48,6 +48,11 @@
     src: dhclient.conf
     dest: /etc/dhcp/dhclient.conf
 
+- name: Configure systemd-logind to ignore laptop lid switch
+  copy:
+    src: logind.conf
+    dest: /etc/systemd/logind.conf
+
 - name: Mask sleep.target
   systemd:
     name: sleep.target

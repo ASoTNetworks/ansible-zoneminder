@@ -10,7 +10,7 @@ Before using the playbook ensure the following have been done:
 1. Install Debian 10 with standard setup, would recommand having a second partition or drive(s) if possible for storing footage.
 1. Copy your SSH public key to ~/.ssh/authorized_keys on the new Debian 10 box or use `ssh-copy <ip.address.of.zm>`
 1. Have a OpenVPN server for remote management and export those keys to [roles/openvpn/files](roles/openvpn/files) all files in this directory will be copied to the ZoneMinder server main config file must be named `zoneminder-client.conf`.
-1. Now you can run the playbook `ansible-playbook -i ip-address-of-zm, zm-install.yml --extra-vars "ansible_sudo_pass=<your_sudo_password> unattended_mail=`<where to send upgrade emails>`"`
+1. Now you can run the playbook `ansible-playbook -i ip-address-of-zm, zm-install.yml --extra-vars "ansible_sudo_pass=<your_sudo_password> unattended_mail=<where to send upgrade emails>"`
 
 After the playbook has successfully finished you can now access ZoneMinder at https://`<ip.address.of.zm>`:57167/zm
 

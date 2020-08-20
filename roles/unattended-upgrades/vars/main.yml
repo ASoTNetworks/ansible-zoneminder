@@ -1,5 +1,5 @@
 ---
-unattended_mail: 'monitor@aseriesoftubez.com'
+unattended_mail: 'root'
 unattended_automatic_reboot: 'true'
 unattended_origins_patterns:
   - 'origin=Debian,codename=${distro_codename},label=Debian-Security'

@@ -15,10 +15,10 @@ iface eth0 inet6 auto
 
 allow-hotplug eth1
 iface eth1 inet static
-	address 192.0.2.1
+	address 192.0.2.254
 	netmask 255.255.255.0
 
 iface eth1 inet6 static
-        address fdc3:241d:c748:b035::1
+        address fdc3:241d:c748:b035::
         netmask 64
 

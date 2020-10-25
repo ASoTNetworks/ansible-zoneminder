@@ -6,7 +6,7 @@ This playbook will install common system utils, set up network interfaces, insta
 Before using the playbook ensure the following have been done:
 1. System is configured with 2 network interfaces the playbook will overwrite and configure network settings for you.
     - eth0 for regular internet access (DHCP)
-    - eth1 for camera network (192.0.2.1/24)
+    - eth1 for camera network (192.0.2.254/24)
 1. Install Debian 10 with standard setup, would recommand having a second partition or drive(s) if possible for storing footage.
 1. Copy your SSH public key to ~/.ssh/authorized_keys on the new Debian 10 box or use `ssh-copy <ip.address.of.zm>`
 1. Have a OpenVPN server for remote management and export those keys to [roles/openvpn/files](roles/openvpn/files) all files in this directory will be copied to the ZoneMinder server main config file must be named `zoneminder-client.conf`.

@@ -1,7 +1,7 @@
 # Installing ZoneMinder
 Use the playbook `zm-install.yml` to set up ZoneMinder
 
-This playbook will install common system utils, set up network interfaces, install and configure @ASoTNetwork's build of ZoneMinder, install and configure Apache, configure OpenVPN client for remote management, configure system firewall, enable unattended-upgrades, and harden SSHd to only allow key login.
+This playbook will install common system utils, set up network interfaces, install and configure @ASoTNetwork's vanilla build of ZoneMinder [(build script)](https://github.com/ASoTNetworks/ASoT-repo/blob/master/zoneminder/build.sh), install and configure Apache, configure OpenVPN client for remote management, configure system firewall, enable unattended-upgrades, and harden SSHd to only allow key login.
 
 Before using the playbook ensure the following have been done:
 1. System is configured with 2 network interfaces the playbook will overwrite and configure network settings for you.
